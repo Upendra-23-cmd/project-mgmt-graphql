@@ -25,6 +25,8 @@ services:
     volumes:
       - ./server:/app
       - /app/node_modules
+    environment:
+      - .env
     depends_on:
       - mongo
     networks:
