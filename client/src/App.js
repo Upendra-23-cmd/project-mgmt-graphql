@@ -5,6 +5,9 @@ import Home from './pages/Home';
 import Project from './pages/Project';
 import NotFound from './pages/NotFound';
 
+// GraphQL URL from environment variable
+const GRAPHQL_URL = import.meta.env.VITE_GRAPHQL_URL;
+
 const cache = new InMemoryCache({
   typePolicies: {
     Query: {
@@ -25,26 +28,24 @@ const cache = new InMemoryCache({
 });
 
 const client = new ApolloClient({
-  uri: 'http://localhost:5000/graphql',
+  uri: GRAPHQL_URL,
   cache,
 });
 
 function App() {
   return (
-    <>
-      <ApolloProvider client={client}>
-        <Router>
-          <Header />
-          <div className='container'>
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/projects/:id' element={<Project />} />
-              <Route path='*' element={<NotFound />} />
-            </Routes>
-          </div>
-        </Router>
-      </ApolloProvider>
-    </>
+    <ApolloProvider client={client}>
+      <Router>
+        <Header />
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects/:id" element={<Project />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      </Router>
+    </ApolloProvider>
   );
 }
 
