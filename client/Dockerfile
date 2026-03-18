@@ -1,4 +1,4 @@
-FROM node:16-buster
+FROM node:16-buster as builder
 
 WORKDIR /app
 
@@ -11,6 +11,10 @@ RUN mkdir node_modules/.cache && chmod -R 777 node_modules/.cache
 
 COPY . /app
 
-EXPOSE 3000
+RUN docker build -t client:v1  .
 
-CMD ["npm", "start"]
+FROM nginx:alpine
+
+COPY --from=builder /app/dist/ /usr/share/nginx/html
+
+CMD [ "nginx", "-g", "daemon off;" ]
