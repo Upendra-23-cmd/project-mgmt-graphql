@@ -11,7 +11,7 @@ RUN mkdir node_modules/.cache && chmod -R 777 node_modules/.cache
 
 COPY . /app
 
-RUN docker build -t client:v1  .
+RUN npm run build
 
 FROM nginx:alpine
 
