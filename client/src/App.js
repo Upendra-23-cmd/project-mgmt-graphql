@@ -6,7 +6,8 @@ import Project from './pages/Project';
 import NotFound from './pages/NotFound';
 
 // GraphQL URL from environment variable
-const REACT_APP_GRAPHQL_URL = import.meta.env.VITE_REACT_APP_GRAPHQL_URL || 'http://localhost:5000/graphql';
+const GRAPHQL_URL =
+  import.meta.env.VITE_GRAPHQL_URL || 'http://localhost:5000/graphql';
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -28,7 +29,7 @@ const cache = new InMemoryCache({
 });
 
 const client = new ApolloClient({
-  uri: REACT_APP_GRAPHQL_URL,
+  uri: GRAPHQL_URL,
   cache,
 });
 
